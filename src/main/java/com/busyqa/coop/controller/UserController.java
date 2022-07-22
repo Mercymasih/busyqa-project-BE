@@ -14,7 +14,7 @@ import com.busyqa.coop.jpa.User;
 import com.busyqa.coop.service.UserService;
 
 @RestController
-@CrossOrigin("*")
+
 public class UserController {
 	
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -47,10 +47,15 @@ public class UserController {
 		String tempusername = user.getUsername();
 		String psswd = user.getPassword();
 		
-		User userobj = null;
+		User userobj = new User();
+		System.out.println(tempusername);
+		System.out.println(psswd);
+
 		if(tempusername !=null && psswd != null) {
 			
+			
 			userobj = service.fetchUserByUsernameandPsswd(tempusername, psswd);
+			System.out.println(userobj);
 		}
 		
 		if(userobj == null) {

@@ -1,9 +1,13 @@
 package com.busyqa.coop.jpa;
 
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+
 
 public class MyUserDetails implements UserDetails{
 
@@ -18,8 +22,12 @@ public class MyUserDetails implements UserDetails{
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		Set<SimpleGrantedAuthority> authorities = new HashSet<SimpleGrantedAuthority>();
+		String role=user.getRole();{
+			authorities.add(new SimpleGrantedAuthority("Role" +role));
+		}
+		return authorities;
 	}
 
 	@Override
@@ -59,3 +67,4 @@ public class MyUserDetails implements UserDetails{
 	}
 
 }
+

@@ -1,6 +1,7 @@
 package com.busyqa.coop.security;
 
 
+import java.util.Arrays;
 import java.util.Collections;
 
 import javax.servlet.http.HttpServletRequest;
@@ -12,24 +13,20 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
-//import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
-//import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-//import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 
-
-//import com.busyqa.coop.service.UserDetailService;
-
 @Configuration
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig{
 	
 	@Autowired
@@ -38,15 +35,10 @@ public class WebSecurityConfig{
 	@Autowired
 	private JwtAuthenticationFilter authenticationFilter;
 	
-
-	
-	
-	
 	@Bean
 	protected SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
 		
-		http.cors()
-			.disable()
+		http
 			.cors().configurationSource(new CorsConfigurationSource() {
 
 			@Override
@@ -56,7 +48,9 @@ public class WebSecurityConfig{
 				config.setAllowedMethods(Collections.singletonList("*"));
 				config.setAllowCredentials(true);
 				config.setAllowedHeaders(Collections.singletonList("*"));
+				config.setExposedHeaders(Arrays.asList("Authorization"));
 				config.setMaxAge(3600L);
+				
 
 				return config;
 				}
@@ -65,7 +59,7 @@ public class WebSecurityConfig{
 			.csrf()
 			.disable()
 			.authorizeRequests()
-			.antMatchers("/authenticate","/welcome","/signup","/login").permitAll()
+			.antMatchers("/authenticate","/welcome","/signup").permitAll()
 			.antMatchers(HttpMethod.OPTIONS).permitAll()
 			.antMatchers(HttpHeaders.ALLOW).permitAll()
 			.anyRequest()
@@ -98,6 +92,11 @@ public class WebSecurityConfig{
 		return new BCryptPasswordEncoder(10);
 		
 	}
+	
+//	@Autowired
+//	public void configureGlobal(AuthenticationManagerBuilder authenticationManagerbuilder) throws Exception {
+//		authenticationManagerbuilder.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
+//	}
 
 
 	

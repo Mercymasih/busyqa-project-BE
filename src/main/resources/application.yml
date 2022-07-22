@@ -22,6 +22,9 @@ spring:
   jackson:
     date-format: "yyyy-MM-dd"  
     
+# Secret-Key    
+jwt:
+  secret: "secret"
 
 ---
 
