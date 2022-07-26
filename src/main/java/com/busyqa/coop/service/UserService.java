@@ -1,7 +1,8 @@
 package com.busyqa.coop.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+//import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.busyqa.coop.jpa.User;
@@ -14,7 +15,7 @@ public class UserService {
 	private UserRepository repo;
 	
 	@Autowired
-	private PasswordEncoder passwordEncoder;
+	private BCryptPasswordEncoder passwordEncoder;
 
     public User saveUser(User user) {
     	user.setPassword(getEncodedPassword(user.getPassword()));

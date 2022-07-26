@@ -1,12 +1,20 @@
 package com.busyqa.coop.jpa;
 
 
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 
 
@@ -16,9 +24,12 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name="USER")
-public class User {
+public class User implements UserDetails {
 	
 	
+
+	private static final long serialVersionUID = 1L;
+
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -146,6 +157,45 @@ public class User {
         return "User [id_user=" + id_user + ", first_name=" + first_name + ", last_name=" + last_name + ", username="
                 + username + ", password=" + password + ", email="+ email +", phone="+ phone + ", role="+ role+"]";
     }
+
+
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		
+		Set<SimpleGrantedAuthority> authorities = new HashSet<SimpleGrantedAuthority>();
+		String role=getRole();{
+			authorities.add(new SimpleGrantedAuthority("Role" +role));
+		}
+		return authorities;
+	}
+
+
+	
+
+
+	@Override
+	public boolean isAccountNonExpired() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	@Override
+	public boolean isAccountNonLocked() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	@Override
+	public boolean isCredentialsNonExpired() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	@Override
+	public boolean isEnabled() {
+		// TODO Auto-generated method stub
+		return true;
+	}
 
 
 	

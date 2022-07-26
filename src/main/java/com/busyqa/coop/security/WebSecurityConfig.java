@@ -18,7 +18,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
+//import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
@@ -39,6 +39,7 @@ public class WebSecurityConfig{
 	protected SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
 		
 		http
+			
 			.cors().configurationSource(new CorsConfigurationSource() {
 
 			@Override
@@ -59,7 +60,7 @@ public class WebSecurityConfig{
 			.csrf()
 			.disable()
 			.authorizeRequests()
-			.antMatchers("/authenticate","/welcome","/signup").permitAll()
+			.antMatchers("/authenticate","/signup").permitAll()
 			.antMatchers(HttpMethod.OPTIONS).permitAll()
 			.antMatchers(HttpHeaders.ALLOW).permitAll()
 			.anyRequest()
@@ -68,9 +69,7 @@ public class WebSecurityConfig{
 			.exceptionHandling().authenticationEntryPoint(unauthorizedHandler)
 			.and()
             .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-			//.and()
-			//.formLogin()
-			//.loginPage("/login")
+		
             ;
 		
 		http.addFilterBefore(authenticationFilter, UsernamePasswordAuthenticationFilter.class);
@@ -88,7 +87,7 @@ public class WebSecurityConfig{
 	}
 
 	@Bean
-	public PasswordEncoder passwordEncoder() {
+	public BCryptPasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder(10);
 		
 	}

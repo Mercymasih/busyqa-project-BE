@@ -1,14 +1,11 @@
 package com.busyqa.coop.service;
 
-import java.util.ArrayList;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.busyqa.coop.jpa.MyUserDetails;
 import com.busyqa.coop.jpa.User;
 import com.busyqa.coop.repository.UserRepository;
 
@@ -24,7 +21,8 @@ public class MyUserDetailsService implements UserDetailsService {
 
 		User user=userRepository.findByUsername(username);
 		
-		return new org.springframework.security.core.userdetails.User(user.getUsername(),user.getPassword(),new ArrayList<>());
+		return user;
+				//new org.springframework.security.core.userdetails.User(user.getUsername(),user.getPassword(),new ArrayList<>());
 	}
 
 }
