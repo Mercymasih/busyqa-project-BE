@@ -35,6 +35,7 @@ public class WebSecurityConfig{
 	@Autowired
 	private JwtAuthenticationFilter authenticationFilter;
 	
+	//Defining Authorizations
 	@Bean
 	protected SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
 		
@@ -60,19 +61,19 @@ public class WebSecurityConfig{
 			.csrf()
 			.disable()
 			.authorizeRequests()
-			.antMatchers("/authenticate","/signup").permitAll()
+			.antMatchers("/authenticate","/signup").permitAll()//permitted entrypoints
 			.antMatchers(HttpMethod.OPTIONS).permitAll()
 			.antMatchers(HttpHeaders.ALLOW).permitAll()
 			.anyRequest()
 			.authenticated()
 			.and()
-			.exceptionHandling().authenticationEntryPoint(unauthorizedHandler)
+			.exceptionHandling().authenticationEntryPoint(unauthorizedHandler)//exception handling entry point
 			.and()
-            .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+            .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)//Stateless Session
 		
             ;
 		
-		http.addFilterBefore(authenticationFilter, UsernamePasswordAuthenticationFilter.class);
+		http.addFilterBefore(authenticationFilter, UsernamePasswordAuthenticationFilter.class);//Authentication Filter
 	    
     
 		

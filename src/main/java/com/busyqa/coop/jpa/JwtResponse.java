@@ -1,5 +1,5 @@
 package com.busyqa.coop.jpa;
-
+//model class for JwtResponse
 public class JwtResponse {
 	
 	private String token;

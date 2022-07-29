@@ -144,13 +144,6 @@ public class User implements UserDetails {
 		this.phone = phone;
 	}
 	
-//	public String getStatus() {
-//		return status;
-//	}
-//
-//	public void setStatus(String status) {
-//		this.status = status;
-//	}
 
     @Override
     public String toString() {
@@ -158,7 +151,7 @@ public class User implements UserDetails {
                 + username + ", password=" + password + ", email="+ email +", phone="+ phone + ", role="+ role+"]";
     }
 
-
+    //get User Authorities
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		

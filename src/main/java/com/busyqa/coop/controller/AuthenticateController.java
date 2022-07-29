@@ -63,7 +63,7 @@ public class AuthenticateController {
 		
 	}
 	
-	
+	//authenticate method
 	private void authenticate(String username, String password) throws Exception {
 		
 		
@@ -73,16 +73,17 @@ public class AuthenticateController {
 			
 		}catch (DisabledException e){
 			
-			throw new Exception("User Disabled" +e.getMessage());
+			throw new Exception("User Disabled " +e.getMessage());
 			
 		}catch(BadCredentialsException e) {
 			
-			throw new Exception("Invalid Credentials"+e.getMessage());
+			throw new Exception("Either username or password is incorrect,Please try again !");
 		}
 		
 	}
 	
-	@GetMapping("current-user")
+	//method to get current user from Principal class
+	@GetMapping("/current-user")
 	public User getCurrentUser(Principal principal) {
 		
 		return ((User) this.userDetailsService.loadUserByUsername(principal.getName()));

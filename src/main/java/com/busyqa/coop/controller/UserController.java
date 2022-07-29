@@ -33,7 +33,7 @@ public class UserController {
 		if(tempusername != null && !"".equals(tempusername)) {
 			User userObj = service.fetchUserByUsername(tempusername);
 			if(userObj !=null) {
-				throw new Exception("User with "+ tempusername + "already exists");
+				throw new Exception("User with "+ tempusername +" "+"already exists");
 			}
 		}
 		logger.debug("Create User!");
@@ -51,7 +51,7 @@ public class UserController {
 			return user;
 		}
 		else {
-			throw new BadCredentialsException("Invalid credentials");
+			throw new BadCredentialsException("Invalid Credentials!!");
 		}
 		
 	}

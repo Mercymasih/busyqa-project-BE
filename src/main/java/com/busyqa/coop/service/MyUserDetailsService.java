@@ -22,7 +22,7 @@ public class MyUserDetailsService implements UserDetailsService {
 		User user=userRepository.findByUsername(username);
 		
 		return user;
-				//new org.springframework.security.core.userdetails.User(user.getUsername(),user.getPassword(),new ArrayList<>());
+				 
 	}
 
 }

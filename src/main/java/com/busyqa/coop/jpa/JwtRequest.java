@@ -1,5 +1,5 @@
 package com.busyqa.coop.jpa;
-
+//model class for JwtRequest
 public class JwtRequest {
 	
 	private String username;
