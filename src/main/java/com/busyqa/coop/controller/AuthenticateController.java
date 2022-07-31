@@ -55,7 +55,7 @@ public class AuthenticateController {
 			
 		}
 		
-		//User authenticated
+		//User authenticated,load user
 		final UserDetails userDetails = this.userDetailsService.loadUserByUsername(jwtRequest.getUsername());
 		final String token=this.jwtUtils.generateToken(userDetails);
 		
