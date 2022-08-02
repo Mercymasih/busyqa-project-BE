@@ -73,7 +73,7 @@ spring:
     url: jdbc:mysql://busyqa-db.catbx6vnhrar.us-east-2.rds.amazonaws.com:3306/usersdatabase?autoReconnect=true&useSSL=false&useUnicode=true&serverTimezone=UTC
     username: busyqa
     password: busyqa123$
-    driver-class-name: org.mysql.Driver
+    driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     show-sql: true
     open-in-view: false
