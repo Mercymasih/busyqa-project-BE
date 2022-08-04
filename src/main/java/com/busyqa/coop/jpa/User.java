@@ -1,6 +1,7 @@
 package com.busyqa.coop.jpa;
 
 
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -24,7 +25,7 @@ import org.springframework.security.core.userdetails.UserDetails;
  */
 @Entity
 @Table(name="USER")
-public class User implements UserDetails {
+public class User implements UserDetails,Serializable {
 	
 	
 
@@ -60,7 +61,7 @@ public class User implements UserDetails {
 	@Column(name="PHONE", nullable=false, length=45)
 	private String phone;
 	
-	@Column(name="ROLE", unique= true,nullable=false, length=45)
+	@Column(name="ROLE",nullable=false, length=45)
 	private String role;
 	
 

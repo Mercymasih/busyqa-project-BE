@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -37,6 +39,7 @@ public class WebSecurityConfig{
 	
 	//Defining Authorizations
 	@Bean
+	@Order(Ordered.HIGHEST_PRECEDENCE)
 	protected SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
 		
 		http
@@ -46,7 +49,7 @@ public class WebSecurityConfig{
 			@Override
 			public CorsConfiguration getCorsConfiguration(HttpServletRequest request) {
 				CorsConfiguration config = new CorsConfiguration();
-				config.setAllowedOrigins(Collections.singletonList("http://localhost:4200"));
+				config.setAllowedOriginPatterns(Collections.singletonList("*"));
 				config.setAllowedMethods(Collections.singletonList("*"));
 				config.setAllowCredentials(true);
 				config.setAllowedHeaders(Collections.singletonList("*"));

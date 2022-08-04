@@ -23,5 +23,10 @@
     "name": "jwt.secret",
     "type": "java.lang.String",
     "description": "A description for 'jwt.secret'"
+  },
+  {
+    "name": "spring.jpa.init.continue-on-error",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.jpa.init.continue-on-error'"
   }
 ]}
