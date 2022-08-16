@@ -64,6 +64,7 @@ public class WebSecurityConfig{
 			.csrf()
 			.disable()
 			.authorizeRequests()
+			.antMatchers("/admin/**").hasRole("Admin")
 			.antMatchers("/authenticate","/signup").permitAll()//permitted entrypoints
 			.antMatchers(HttpMethod.OPTIONS).permitAll()
 			.antMatchers(HttpHeaders.ALLOW).permitAll()

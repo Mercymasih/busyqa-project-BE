@@ -2,12 +2,15 @@ package com.busyqa.coop.controller;
 
 
 import java.security.Principal;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 //import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,6 +27,29 @@ public class UserController {
 	
 	@Autowired
 	private UserService service;
+	
+	
+	//Get all users
+	@GetMapping("/users")
+    public List<User> listUsers(){
+
+        logger.debug("List Users!");
+
+        List<User> users = this.service.listUsers();
+
+        users.forEach(System.out::println);
+
+        return users;
+    }
+	//Get a Single user
+    @GetMapping(value = "/users/{id}")
+    public User listUser(@PathVariable("id") int id){
+
+        logger.debug("List User: {} !", id);
+
+        return this.service.findUser(id);
+    }
+
 
 	//Creating New User
 	@PostMapping("/signup")

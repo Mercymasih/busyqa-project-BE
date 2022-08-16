@@ -1,5 +1,7 @@
 package com.busyqa.coop.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 //import org.springframework.security.crypto.password.PasswordEncoder;
@@ -12,31 +14,44 @@ import com.busyqa.coop.repository.UserRepository;
 public class UserService {
 	
 	@Autowired
-	private UserRepository repo;
+	private UserRepository userRepo;
 	
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
 
     public User saveUser(User user) {
     	user.setPassword(getEncodedPassword(user.getPassword()));
-		return repo.save(user);
+		return userRepo.save(user);
 		
 	}
     
     public User fetchUserByUsername(String username) {
 		
-		return repo.findByUsername(username);
+		return userRepo.findByUsername(username);
 	}
 	
 	
 	public User fetchUserByUsernameandPsswd(String username, String password) {
 		
-		return repo.findByUsernameAndPassword(username,password);
+		return userRepo.findByUsernameAndPassword(username,password);
 	}
 	
 	public String getEncodedPassword(String password) {
         return passwordEncoder.encode(password);
     }
+	
+	public List<User> listUsers() {
+
+        List<User> users = this.userRepo.findAll();
+       
+        return users;
+    }
+	
+	public User findUser(int idUser){
+        return this.userRepo.findById(idUser).get();
+    }
+	
+		
 }
 
 
