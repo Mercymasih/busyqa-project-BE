@@ -28,29 +28,35 @@ public class TeamService {
 	@Autowired
 	private UserService userService;
 	
-	
-	//@Transactional(propagation=Propagation.REQUIRED)
-    public void createTeam(Team team) throws Exception{
+	@Transactional(propagation=Propagation.REQUIRED)
+    public void saveTeam(Team team) throws Exception{
        
 		/*if(!(user.getRole().equalsIgnoreCase("Admin"))){
 			
 			throw new Exception("User "+ user +" doesn't have permission to create Team");
 		}*/
-        this.validateTeam(team);
+        //this.validateTeam(team);
         /*
-         * Create the User
+         * Create the Team
          */
+        List<User> users= new ArrayList<>();
         
-        User user = userService.findUser(team.getId_user());
+	        users.forEach((userObj) -> {
+	        	
+	        	User userobj = userService.findUser(team.getId_user());
+	        	System.out.println("Selected user is" +userobj);
+            /* Create new TeamUsers */
+	        	Team_Users teamusers = this.createTeamUsers(team, userobj);
+	        	System.out.println("Team users are" +userobj);
+	        
+            team.setTeam_users(new ArrayList<>());
+            team.addTeamUsers(teamusers); /* Add new User to the Team*/
+            
+            this.teamRepo.save(team);
+	        });
         
-        /* Create new TeamUsers */
-        Team_Users teamusers = this.createTeamUsers(team, user);
-
-        team.setUsers(new ArrayList<>());
-        team.addTeamUsers(teamusers); /* Add new User to the Team*/
-
-        this.teamRepo.save(team);
     }
+	
 	
 	private Team_Users createTeamUsers(Team team,User user) {
 
@@ -61,16 +67,16 @@ public class TeamService {
 
         return team_users;
     }
-	private void validateTeam(Team team) throws Exception {
-		
-		//String tempteamname= team.getTeamname();
-		
-		Team teamObj = teamRepo.findByTeamname(team.getTeamname());
-		
-//			if(teamObj !=null) {
-//				throw new Exception("Team "+ teamObj +" "+"already exists");
-//			}
-	}
+//	private void validateTeam(Team team) throws Exception {
+//		
+//		//String tempteamname= team.getTeamname();
+//		
+//		Team teamObj = teamRepo.findByTeamname(team.getTeamname());
+//		
+////			if(teamObj !=null) {
+////				throw new Exception("Team "+ teamObj +" "+"already exists");
+////			}
+//	}
 		
 	public List<Team> listTeam() {
 

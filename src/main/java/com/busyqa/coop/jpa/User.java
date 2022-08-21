@@ -71,9 +71,9 @@ public class User implements UserDetails,Serializable {
 	private String role;
 	
 	@JsonIgnore
-	@JsonManagedReference
+	//@JsonManagedReference
     @OneToMany(mappedBy="user", cascade=CascadeType.ALL)
-    private List<Team_Users> userteam;
+    private List<Team_Users> team_users;
 	
 	public User() {
 		
@@ -93,6 +93,16 @@ public class User implements UserDetails,Serializable {
 	this.role = role;
 }
 
+
+
+	public List<Team_Users> getTeam_users() {
+		return team_users;
+	}
+
+
+	public void setTeam_users(List<Team_Users> team_users) {
+		this.team_users = team_users;
+	}
 
 
 	public int getId_user() {
@@ -153,6 +163,18 @@ public class User implements UserDetails,Serializable {
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
+	
+	public Team_Users addUserRole(Team_Users team_users) {
+        getTeam_users().add(team_users);
+        team_users.setUser(this);
+        return team_users;
+    }
+
+    public Team_Users removeUserRole(Team_Users team_users) {
+        getTeam_users().remove(team_users);
+        team_users.setUser(null);
+        return team_users;
+    }
 	
 
     @Override

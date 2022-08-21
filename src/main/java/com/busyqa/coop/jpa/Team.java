@@ -2,6 +2,7 @@ package com.busyqa.coop.jpa;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -49,7 +50,7 @@ public class Team implements Serializable{
 	@OneToMany(mappedBy="team",cascade=CascadeType.ALL, fetch= FetchType.EAGER)
 	@JsonIgnore
 	//@JsonManagedReference
-    private List<Team_Users> users;
+    private List<Team_Users> team_users;
     
 	
 	
@@ -57,12 +58,12 @@ public class Team implements Serializable{
 		super();
 	}
 
-	public Team(int id_team,String teamname, Date date_of_creation,List<Team_Users> users) {
+	public Team(int id_team,String teamname, Date date_of_creation,List<Team_Users> team_users) {
 		super();
 		this.id_team = id_team;
 		this.teamname = teamname;
 		this.date_of_creation = date_of_creation;
-		this.users = users;
+		this.team_users = team_users;
 	}
 	
 	public int getId_team() {
@@ -84,15 +85,15 @@ public class Team implements Serializable{
 	public void setDate_of_creation(Date date_of_creation) {
 		this.date_of_creation = date_of_creation;
 	}
-	public List<Team_Users> getUsers() {
-		return users;
+	public List<Team_Users> getTeam_users() {
+		return team_users;
 	}
-	public void setUsers(List<Team_Users> users) {
-		this.users = users;
+	public void setTeam_users(List<Team_Users> team_users) {
+		this.team_users= team_users;
 	}
 
 	public Team_Users addTeamUsers(Team_Users teamUsers) {
-        getUsers().add(teamUsers);
+        getTeam_users().add(teamUsers);
         teamUsers.setTeam(this);
 
         return teamUsers;
@@ -109,7 +110,7 @@ public class Team implements Serializable{
 	@Override
 	public String toString() {
 		return "Team [id_team=" + id_team + ", teamname=" + teamname + ", date_of_creation=" + date_of_creation
-				+ ", users=" + users + "]";
+				+ ", team_users=" + team_users + "]";
 	}
 
 }

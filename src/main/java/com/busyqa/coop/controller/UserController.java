@@ -43,11 +43,13 @@ public class UserController {
     }
 	//Get a Single user
     @GetMapping(value = "/users/{id}")
-    public User listUser(@PathVariable("id") int id){
+    public User getUser(@PathVariable("id") int id){
 
-        logger.debug("List User: {} !", id);
+        logger.debug("Get User: {} !", id);
 
-        return this.service.findUser(id);
+        User usr= this.service.findUser(id);
+        System.out.println("Selected user is" +usr);
+        return usr;
     }
 
 
